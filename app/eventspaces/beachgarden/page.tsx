@@ -1,8 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button";
 import Image from "next/image"
-import { facilities } from "./constant";
-import { FacilityCard } from "./FacilityCards";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -26,12 +24,13 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { Sidebar } from "lucide-react";
 
 export default function Page() {
   return (
-    <SidebarProvider>
-      <AppSidebar/>
-      <SidebarInset>
+    <SidebarProvider> 
+        <AppSidebar/>
+        <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 bg-[#CEDBEE]">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
@@ -46,24 +45,30 @@ export default function Page() {
                     Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbSeparator/>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="/authentication/dashboard" className= "text-black">
+                    Beach Garden
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3">
-            {facilities.map((facility, index) => (
-              <FacilityCard
-                key={index}
-                title={facility.title}
-                imageSrc={facility.imageSrc}
-                href={facility.href}
-              />
-            ))}
-          </div>
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
-  )
+        <div className= "bg-[#EEF4ED] w-full h-full">
+            <div className="w-full h-250 max-w-5xl mx-auto bg-[#dce5f2] border border-slate-400 rounded-xl p-5 mt-2 shadow-sm relative "> 
+                <div className= "flex justify-center items-center h-full w-full"> 
+                    <Image
+                        src="/Beach_Resort.jpg"
+                        alt="beachresortimage"
+                        width={500}
+                        height={100}
+                        className="rounded-xl object-cover " 
+                    />
+                </div>
+            </div>
+        </div>  
+    </SidebarInset>
+    </SidebarProvider>  
+)
 }
