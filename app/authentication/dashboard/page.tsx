@@ -56,10 +56,10 @@ export default function Dashboard() {
           <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3 text-[#EEF4ED]">
             {facilities.map((facility, index) => (
               <FacilityCard
+                id={facility.id}
                 key={index}
                 title={facility.title}
                 imageSrc={facility.imageSrc}
-                href={facility.href}
               />
             ))}
           </div>

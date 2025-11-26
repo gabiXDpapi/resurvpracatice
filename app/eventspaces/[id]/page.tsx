@@ -1,6 +1,8 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button";
 import Image from "next/image"
+import { notFound } from 'next/navigation';
+import { facilities } from '@/app/authentication/dashboard/constant';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -26,7 +28,17 @@ import {
 } from "@/components/ui/sidebar"
 import { Sidebar } from "lucide-react";
 
-export default function Page() {
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+export default async function EventSpace({ params }: PageProps) {
+  const { id } = await params;
+  const facility = facilities.find((item) => item.id === id);
+  if (!facility) {
+    return notFound(); 
+  }
   return (
     <SidebarProvider> 
         <AppSidebar/>
@@ -48,7 +60,7 @@ export default function Page() {
                 <BreadcrumbSeparator/>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="/authentication/dashboard" className= "text-black">
-                    Beach Garden
+                    {facility.title}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
               </BreadcrumbList>
@@ -71,10 +83,8 @@ export default function Page() {
       </div>
 
 
-      <Button className="absolute bottom-4 right-4 bg-[#C5E0C7] hover:bg-[#b3dcb5] text-black px-6 py-2 font-bold border border-gray-400 shadow-md transition-colors" >
-        <a href="/reservation">
+      <Button className="absolute bottom-4 right-4 bg-[#C5E0C7] hover:bg-[#b3dcb5] text-black px-6 py-2 font-bold border border-gray-400 shadow-md transition-colors">
         RESERVE
-        </a>
       </Button>
     </div>
 
