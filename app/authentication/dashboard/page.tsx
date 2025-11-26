@@ -27,7 +27,8 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-export default function Page() {
+
+export default function Dashboard() {
   return (
     <SidebarProvider>
       <AppSidebar/>
@@ -52,7 +53,7 @@ export default function Page() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3">
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3 text-[#EEF4ED]">
             {facilities.map((facility, index) => (
               <FacilityCard
                 key={index}
