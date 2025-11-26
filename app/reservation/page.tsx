@@ -7,6 +7,9 @@ import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import SchedulerWrapper from "@/components/schedule/_components/view/schedular-view-filteration";
+import { SchedulerProvider } from "@/components/providers/schedular-provider";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -107,7 +110,7 @@ export default function Reservation() {
                   </Card>
 
                   <div className="flex flex-col w-full md:flex-1 h-[500px] md:h-auto bg-[#556378] rounded-lg shadow-sm p-4 text-white">
-                 {/* Content for the second card goes here */}
+                 
                  <h2 className="text-xl font-bold mb-2">Reservation Summary</h2>
                  <p className="text-sm opacity-80">Details will appear here...</p>
               </div>
