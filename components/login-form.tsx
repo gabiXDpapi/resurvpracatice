@@ -45,7 +45,7 @@
       > 
         <FieldGroup>
           <div className="flex flex-col items-center gap-1 text-center text-[#556378]">
-            <h1 className="text-5xl font-bold">Resurv</h1>
+            <h1 className="text-5xl font-extrabold">Resurv</h1>
           </div>
           <Field>
             <FieldLabel htmlFor="email" className="text-[#556378]">Email</FieldLabel>

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// 1. Import Roboto_Flex
+import { Geist, Geist_Mono, Roboto_Flex } from "next/font/google"; 
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Sidebar } from "@/components/ui/sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,6 +11,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// 2. Configure Roboto Flex
+const robotoFlex = Roboto_Flex({
+  subsets: ["latin"],
+  variable: "--font-roboto-flex", // This defines the CSS variable name
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -26,10 +32,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <main>
-            {children}
-          </main>
+      {/* 3. Add robotoFlex.variable to the className string */}
+      <body className={`${geistSans.variable} ${geistMono.variable} ${robotoFlex.variable} antialiased`}>
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );
