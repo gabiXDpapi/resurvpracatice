@@ -83,8 +83,10 @@ export default async function EventSpace({ params }: PageProps) {
       </div>
 
 
-      <Button className="absolute bottom-4 right-4 bg-[#C5E0C7] hover:bg-[#b3dcb5] text-black px-6 py-2 font-bold border border-gray-400 shadow-md transition-colors">
+      <Button className="absolute bottom-4 right-4 bg-[#C5E0C7] hover:bg-[#b3dcb5] text-black px-6 py-2 font-bold border border-gray-400 shadow-md transition-colors cursor-pointer">
+        <a href="/reservation"> 
         RESERVE
+        </a>
       </Button>
     </div>
 
