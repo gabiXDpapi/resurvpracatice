@@ -7,6 +7,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { DateRange } from "react-day-picker"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -32,7 +33,10 @@ import {
 } from "@/components/ui/sidebar"
 
 export default function Reservation() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date())
+   const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
+    from: new Date(2025, 5, 9),
+    to: new Date(2025, 5, 26),
+  })
   return (
     <SidebarProvider>
       <AppSidebar/>
@@ -58,16 +62,18 @@ export default function Reservation() {
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
-            <div className="flex flex-col w-full max-w-5xl mx-auto mt-2 bg-[#dce5f2] border border-slate-400 rounded-xl shadow-sm overflow-hidden items-center justify-center ">
+            <div className="flex flex-col w-full max-w-5xl mx-auto mt-2 bg-[#dce5f2] border border-slate-400 rounded-xl shadow-sm overflow-hidden items-stretch justify-center ">
                 <div className="flex flex-col md:flex-row w-full h-full p-4 gap-6 justify-center items-center">
-                  <Card className= " flex flex-col w-[300px] h-[800px] justify-center items-center bg-[#556378] pt-3 pb-3 rounded-lg ">
+                  <Card className="flex flex-col w-full md:flex-1 h-auto md:h-auto bg-[#556378] rounded-lg shadow-sm p-4 text-white justify-center items-center md:w-full">
                     <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    className="rounded-lg border bg-[#EEF4ED]"
+                    mode="range"
+                    defaultMonth={dateRange?.from}
+                    selected={dateRange}
+                    onSelect={setDateRange}
+                    className="rounded-lg border bg-[#EEF4ED] text-[#556378] p-3 w-auto md:w-full md:h-full"
                     />
-
+                  </Card>
+                  <Card className= " flex flex-col w-[300px] h-auto justify-center items-center bg-[#556378] pt-3 pb-3 rounded-lg text-[#556378]">
                     <div className="flex flex-col justify-start w-[285px] mt-4 gap-2 px-4"> 
                       <Label htmlFor="time-picker" className="px-1 text-white">
                         Start Time
@@ -105,13 +111,6 @@ export default function Reservation() {
                       <Textarea id="specreq" className="w-full max-w-[300px] max-h-[80px] text-[#EEF4ED]" />
                     </div>
                   </Card>
-
-                  <div className="flex flex-col w-full md:flex-1 h-[500px] md:h-auto bg-[#556378] rounded-lg shadow-sm p-4 text-white">
-                 {/* Content for the second card goes here */}
-                 <h2 className="text-xl font-bold mb-2">Reservation Summary</h2>
-                 <p className="text-sm opacity-80">Details will appear here...</p>
-              </div>
-
                 </div>
 
                 <div className="p-6 flex flex-col gap-4">
