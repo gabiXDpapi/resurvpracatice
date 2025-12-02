@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image"
 import { notFound } from 'next/navigation';
 import { facilities } from '@/app/authentication/dashboard/constant';
-import SchedulerWrapper from "@/components/schedule/_components/view/schedular-view-filteration";
-import { SchedulerProvider } from "@/components/providers/schedular-provider";
 import {
   Breadcrumb,
   BreadcrumbItem,
