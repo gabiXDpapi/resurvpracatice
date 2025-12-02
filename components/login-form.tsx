@@ -44,16 +44,16 @@
       {...props}
       > 
         <FieldGroup>
-          <div className="flex flex-col items-center gap-1 text-center">
-            <h1 className="text-5xl font-bold text-[#556378]">Resurv</h1>
+          <div className="flex flex-col items-center gap-1 text-center text-[#556378]">
+            <h1 className="text-5xl font-bold">Resurv</h1>
           </div>
           <Field>
             <FieldLabel htmlFor="email" className="text-[#556378]">Email</FieldLabel>
-            <Input id="email" type="email" className=" border-[#556378]" required />
+            <Input id="email" type="email" placeholder="m@example.com" required className="border border-[#556378]"/>
           </Field>
           <Field>
             <div className="flex items-center">
-              <FieldLabel htmlFor="password" className="text-[#556378]" >Password</FieldLabel>
+              <FieldLabel htmlFor="password" className="text-[#556378]">Password</FieldLabel>
               <a
                 href="#"
                 className="ml-auto text-sm underline-offset-4 hover:underline text-[#556378]"
@@ -61,17 +61,17 @@
                 Forgot your password?
               </a>
             </div>
-            <Input id="password" type="password" className=" border-[#556378]" required />
+            <Input id="password" type="password" required className="border border-[#556378]"/>
           </Field>
           <Field>
-            <Button type="submit" className="w-full bg-[#556378] text-[#EEF4ED]" disabled={isLoading}> 
+            <Button type="submit" className="w-full bg-[#556378] cursor-pointer" disabled={isLoading}> 
             {isLoading ? "Logging in..." : "Login"} 
           </Button>
           </Field>
           <Field>
-            <FieldDescription className="text-center text-[#556378]">
+            <FieldDescription className="text-center text-[#556378]" >
               Don't have an account?{" "}
-              <a href="/authentication/signup" className="underline underline-offset-4 text-[#556378]">
+              <a href="/authentication/signup" className="underline underline-offset-4 ">
                 Sign up
               </a>
             </FieldDescription>
