@@ -1,63 +1,60 @@
+import * as React from "react"
 import { AppSidebar } from "@/components/app-sidebar"
-import { Button } from "@/components/ui/button";
-import Image from "next/image"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator, 
-} from "@/components/ui/breadcrumb"
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import { EventCalendarCard, CalendarEvent } from "@/components/EventCalendarCard"
+import { getEvents } from "../../../../lib/eventsdata"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { Separator } from "@/components/ui/separator"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 
-export default function Dashboard() {
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export default async function CalendarPage({ params }: PageProps) {
+  const events = await getEvents();
   return (
     <SidebarProvider>
-      <AppSidebar/>
+      <AppSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 bg-[#CEDBEE]">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <Breadcrumb >
+            <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+            <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/authentication/dashboard" className= "text-black">
+                  <BreadcrumbLink href="/authentication/dashboard" className="text-black">
                     Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/authentication/dashboard" className= "text-black">
+                  <BreadcrumbLink href="/authentication/dashboard" className="text-black">
                     Calendar
                   </BreadcrumbLink>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-       </div>
+          </div>
         </header>
+        
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
-          
+          <EventCalendarCard events={events} />
         </div>
+        
       </SidebarInset>
     </SidebarProvider>
   )

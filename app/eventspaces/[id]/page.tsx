@@ -2,7 +2,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button";
 import Image from "next/image"
 import { notFound } from 'next/navigation';
-import { facilities } from '@/app/authentication/dashboard/constant';
+import { facilities } from '@/lib/constant';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -33,6 +33,7 @@ interface PageProps {
     id: string;
   }>;
 }
+
 export default async function EventSpace({ params }: PageProps) {
   const { id } = await params;
   const facility = facilities.find((item) => item.id === id);
