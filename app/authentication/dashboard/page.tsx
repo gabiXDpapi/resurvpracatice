@@ -1,8 +1,8 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button";
 import Image from "next/image"
-import { facilities } from "./constant";
-import { FacilityCard } from "./FacilityCards";
+import { facilities } from "../../../lib/constant";
+import { FacilityCard } from "../../../components/FacilityCards";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -53,7 +53,7 @@ export default function Dashboard() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3 text-[#EEF4ED]">
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3 ">
             {facilities.map((facility, index) => (
               <FacilityCard
                 id={facility.id}
