@@ -67,7 +67,7 @@ export default function Reservation() {
                   <Card className="flex flex-col w-full md:flex-1 h-auto md:h-auto bg-[#556378] rounded-lg shadow-sm p-4 text-white justify-center items-center md:w-full">
                     <Calendar
                     mode="range"
-                    defaultMonth={dateRange?.from}
+                    defaultMonth={new Date()}
                     selected={dateRange}
                     onSelect={setDateRange}
                     className="rounded-lg border bg-[#EEF4ED] text-[#556378] p-3 w-auto md:w-full md:h-full"
