@@ -62,10 +62,10 @@ export default async function ContactsPage() {
                     className="object-cover"
                   />
                 </div>
-                <CardContent className="flex flex-1 items-center justify-center p-1 text-[#EEF4ED] font-bold text-2xl text-center">
+                <CardContent className="flex flex-1 items-center justify-center p-1 text-white font-bold text-2xl text-center">
                   {item.title}
                 </CardContent>
-                <div className="flex flex-1 items-center justify-center text-[#EEF4ED] font-regular text-xl text-center">
+                <div className="flex flex-1 items-center justify-center text-white font-regular text-xl text-center underline">
                  {item.contactnum}
                 </div>
 
