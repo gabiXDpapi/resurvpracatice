@@ -68,6 +68,8 @@ export default async function EventSpace({ params }: PageProps) {
             </Breadcrumb>
           </div>
         </header>
+
+        
         <div className="bg-[#EEF4ED] w-full min-h-screen p-10">
   <div className="flex flex-col w-full max-w-5xl mx-auto bg-[#dce5f2] border border-slate-400 rounded-xl shadow-sm overflow-hidden">
     <div className="relative w-full h-[400px]">
@@ -85,7 +87,7 @@ export default async function EventSpace({ params }: PageProps) {
 
 
       <Button className="absolute bottom-4 right-4 bg-[#C5E0C7] hover:bg-[#b3dcb5] text-black px-6 py-2 font-bold border border-gray-400 shadow-md transition-colors cursor-pointer">
-        <a href="/reservation"> 
+        <a href={`/reservation/${facility.id}`}> 
         RESERVE
         </a>
       </Button>
