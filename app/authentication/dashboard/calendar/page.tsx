@@ -1,6 +1,11 @@
+"use client"
+import * as React from "react"
 import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button";
 import Image from "next/image"
+import { Calendar } from "@/components/ui/calendar" 
+import { facilities } from '@/app/authentication/dashboard/constant';
+import { notFound } from "next/navigation"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -24,9 +29,31 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
 
-export default function Dashboard() {
+export default function CalendarPage({ params }: PageProps){
+  const [date, setDate] = React.useState <Date | undefined>(
+    new Date(2025, 5,12)
+  )
+  const bookedDates = Array.from(
+    { length: 5 },
+    (_, i) => new Date(2025, 11, 1 + i)
+  )
+  
   return (
     <SidebarProvider>
       <AppSidebar/>
@@ -56,6 +83,45 @@ export default function Dashboard() {
        </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
+          
+            <div className="flex flex-col w-full max-w-5xl mx-auto mt-2 p-4 gap-6 bg-[#dce5f2] border border-slate-400 rounded-xl shadow-sm overflow-hidden items-stretch justify-center ">
+            <Select>
+            <SelectTrigger className="w-[190px] bg-[#EEF4ED] border border-[#556378]">
+              <SelectValue placeholder="Select an Event Space" />
+              </SelectTrigger>
+              <SelectContent className="bg-[#EEF4ED]" >
+                <SelectGroup>
+                  {facilities.map((facility, index) => (
+                  <SelectItem 
+                    key={index} 
+                    value={facility.title}
+                  >
+                    {facility.title}
+                  </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                disabled={bookedDates}
+                modifiers={{
+                booked: bookedDates, 
+                }}
+                modifiersClassNames={{
+                booked: 
+                "bg-red-100 text-red-400 " + 
+                "line-through decoration-red-400 " +
+                "cursor-not-allowed " +
+                "opacity-100 " +
+                "[&>button]:hover:bg-red-100 [&>button]:hover:text-red-400 [&>button]:cursor-not-allowed",
+                }}
+                className="rounded-lg border bg-[#EEF4ED] text-[#556378] p-3 w-full h-full "
+            />
+            </div>
           
         </div>
       </SidebarInset>
