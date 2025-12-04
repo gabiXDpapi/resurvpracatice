@@ -35,12 +35,23 @@ export function EventCalendarCard({ events }: EventCalendarCardProps) {
   const [date, setDate] = React.useState<Date | undefined>(
     new Date(2025, 5, 12)
   )
+const [currentMonth, setCurrentMonth] = React.useState<Date>(
+    new Date(2025, 5, 12) 
+  )
 
   const bookedDates = Array.from(
     { length: 5 },
     (_, i) => new Date(2025, 11, 1 + i)
   )
-
+  const filteredEvents = events.filter((event) => {
+    const eventDate = new Date(event.from);
+    
+    // Check if event year and month match the currently viewed month
+    return (
+      eventDate.getMonth() === currentMonth.getMonth() &&
+      eventDate.getFullYear() === currentMonth.getFullYear()
+    );
+  });
   return (
     <Card className="flex flex-col w-full max-w-5xl mx-auto mt-2 p-4 gap-6 bg-[#dce5f2] border border-slate-400 rounded-xl shadow-sm overflow-hidden items-stretch justify-center">
       <Select>
@@ -64,6 +75,8 @@ export function EventCalendarCard({ events }: EventCalendarCardProps) {
         onSelect={setDate}
         disabled={bookedDates}
         modifiers={{ booked: bookedDates }}
+        month={currentMonth} 
+        onMonthChange={setCurrentMonth}
         modifiersClassNames={{
           booked:
             "bg-red-100 text-red-400 line-through decoration-red-400 cursor-not-allowed opacity-100 [&>button]:hover:bg-red-100 [&>button]:hover:text-red-400 [&>button]:cursor-not-allowed",
@@ -74,8 +87,7 @@ export function EventCalendarCard({ events }: EventCalendarCardProps) {
       <CardFooter className="flex flex-col items-start gap-3 border-t px-4 !pt-4">
         <div className="flex w-full items-center justify-between px-1">
           <div className="text-sm text-[#556378] font-medium ">
-            {date?.toLocaleDateString("en-US", {
-              day: "numeric",
+            {currentMonth.toLocaleDateString("en-US", {
               month: "long",
               year: "numeric",
             })}
@@ -84,18 +96,21 @@ export function EventCalendarCard({ events }: EventCalendarCardProps) {
         
         {/* 3. Using the PROPS here instead of a hardcoded array */}
         <div className="flex w-full flex-col gap-2 text-[#556378]">
-          {events.map((event, index) => (
-            <div
-              key={index} // Using index as fallback key if titles aren't unique
-              className=" bg-[#EEF4ED] after:bg-primary/70 relative rounded-md p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
-            >
-              <div className="font-medium">{event.title}</div>
-              <div className="text-muted-foreground text-xs">
-                {/* Ensure we convert string to Date object for little-date */}
-                {formatDateRange(new Date(event.from), new Date(event.to))}
-              </div>
-            </div>
-          ))}
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((event, index) => (
+                <div
+                key={index}
+                className=" bg-[#EEF4ED] after:bg-primary/70 relative rounded-md p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full"
+                >
+                <div className="font-medium">{event.title}</div>
+                <div className="text-muted-foreground text-xs">
+                    {formatDateRange(new Date(event.from), new Date(event.to))}
+                </div>
+                </div>
+            ))
+          ) : (
+             <p className="text-xs italic text-gray-500 pl-2">No events this month</p>
+          )}
         </div>
       </CardFooter>
     </Card>
