@@ -37,15 +37,10 @@ export default async function CalendarPage({ params }: PageProps) {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="/authentication/dashboard" className="text-black">
-                    Dashboard
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/authentication/dashboard" className="text-black">
                     Calendar
                   </BreadcrumbLink>
                 </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
               </BreadcrumbList>
             </Breadcrumb>
           </div>
