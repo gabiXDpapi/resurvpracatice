@@ -81,7 +81,7 @@ const [currentMonth, setCurrentMonth] = React.useState<Date>(
           booked:
             "bg-red-100 text-red-400 line-through decoration-red-400 cursor-not-allowed opacity-100 [&>button]:hover:bg-red-100 [&>button]:hover:text-red-400 [&>button]:cursor-not-allowed",
         }}
-        className=" rounded-lg border bg-[#EEF4ED] text-[#556378] p-3 w-full h-full"
+        className=" rounded-lg border bg-[#EEF4ED] text-[#556378] p-3 w-full h-full [&_td]:pointer-events-none"
       />
 
       <CardFooter className="flex flex-col items-start gap-3 border-t px-4 !pt-4">
