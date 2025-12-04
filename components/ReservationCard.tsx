@@ -1,8 +1,7 @@
-"use client"
+"use client" // This marks it as a Client Component
+
 import * as React from "react"
 import { AppSidebar } from "@/components/app-sidebar"
-import { Button } from "@/components/ui/button";
-import Image from "next/image"
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -13,18 +12,9 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator, 
 } from "@/components/ui/breadcrumb"
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import {
   SidebarInset,
@@ -32,11 +22,22 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-export default function Reservation() {
-   const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
+// Define what data this component needs from the server
+interface ReservationFormProps {
+  facility: {
+    id: string;
+    title: string;
+    // Add other properties of 'facility' here if needed
+  };
+}
+
+export function ReservationCard({ facility }: ReservationFormProps) {
+  // State works here because of "use client"
+  const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
     from: new Date(2025, 5, 9),
     to: new Date(2025, 5, 26),
   })
+
   return (
     <SidebarProvider>
       <AppSidebar/>
@@ -44,18 +45,26 @@ export default function Reservation() {
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 bg-[#CEDBEE]">
           <div className="flex items-center gap-2 px-4 ">
             <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <Breadcrumb >
+            <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+            <Breadcrumb>
               <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="/calendar" className= "text-black">
+                    Dashboard
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="/calendar" className= "text-black">
+                    {facility.title} 
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="/calendar" className= "text-black">
                     Reservation
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
               </BreadcrumbList>
             </Breadcrumb>
           </div> 
@@ -67,7 +76,7 @@ export default function Reservation() {
                   <Card className="flex flex-col w-full md:flex-1 h-auto md:h-auto bg-[#556378] rounded-lg shadow-sm p-4 text-white justify-center items-center md:w-full">
                     <Calendar
                     mode="range"
-                    defaultMonth={dateRange?.from}
+                    defaultMonth={new Date()}
                     selected={dateRange}
                     onSelect={setDateRange}
                     className="rounded-lg border bg-[#EEF4ED] text-[#556378] p-3 w-auto md:w-full md:h-full"
@@ -75,44 +84,23 @@ export default function Reservation() {
                   </Card>
                   <Card className= " flex flex-col w-[300px] h-auto justify-center items-center bg-[#556378] pt-3 pb-3 rounded-lg text-[#556378]">
                     <div className="flex flex-col justify-start w-[285px] mt-4 gap-2 px-4"> 
-                      <Label htmlFor="time-picker" className="px-1 text-white">
-                        Start Time
-                      </Label>
-                      <Input
-                        type="time"
-                        id="time-picker"
-                        defaultValue="00:00"
-                        className="px-1 text-[#EEF4ED] [&::-webkit-calendar-picker-indicator]:hidden"
-                      />
+                      <Label htmlFor="time-picker" className="px-1 text-white">Start Time</Label>
+                      <Input type="time" id="time-picker-start" defaultValue="00:00" className="px-1 text-[#EEF4ED] [&::-webkit-calendar-picker-indicator]:hidden" />
                       
-                      <Label htmlFor="time-picker" className="px-1 text-[#EEF4ED]">
-                        End Time
-                      </Label>
-                      <Input 
-                        type="time" 
-                        id="time-picker"
-                        defaultValue="00:00" 
-                        className= " px-1 text-[#EEF4ED] [&::-webkit-calendar-picker-indicator]:hidden"
-                      /> 
+                      <Label htmlFor="time-picker" className="px-1 text-[#EEF4ED]">End Time</Label>
+                      <Input type="time" id="time-picker-end" defaultValue="00:00" className= " px-1 text-[#EEF4ED] [&::-webkit-calendar-picker-indicator]:hidden" /> 
 
-                      <Label htmlFor="purpose" className= "text-[#EEF4ED]">
-                        Purpose of Event 
-                      </Label>
+                      <Label htmlFor="purpose" className= "text-[#EEF4ED]">Purpose of Event</Label>
                       <Textarea id="purpose" className="w-full max-w-[300px] max-h-[80px] text-[#EEF4ED]" />
 
                       <Label htmlFor="numofatt" className= "text-[#EEF4ED]">Number of Attendees </Label>
-                      <Input 
-                        type="number" 
-                        id="numofatt"
-                        className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[#EEF4ED]"
-                      />
+                      <Input type="number" id="numofatt" className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-[#EEF4ED]" />
 
                       <Label htmlFor="specreq" className= "text-[#EEF4ED]">Special Requirements/Accomodities </Label>
                       <Textarea id="specreq" className="w-full max-w-[300px] max-h-[80px] text-[#EEF4ED]" />
                     </div>
                   </Card>
                 </div>
-
                 <div className="p-6 flex flex-col gap-4">
             </div>
             </div>
