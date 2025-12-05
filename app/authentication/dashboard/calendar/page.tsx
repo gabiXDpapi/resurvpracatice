@@ -1,7 +1,8 @@
 import * as React from "react"
 import { AppSidebar } from "@/components/app-sidebar"
-import { EventCalendarCard, CalendarEvent } from "@/components/EventCalendarCard"
+import { EventCalendarCard } from "@/components/EventCalendarCard"
 import { getEvents } from "../../../../lib/eventsdata"
+import { sampleEvents } from "@/lib/events"
 import {
   SidebarInset,
   SidebarProvider,
@@ -22,6 +23,7 @@ interface PageProps {
     id: string;
   }>;
 }
+
 
 export default async function CalendarPage({ params }: PageProps) {
   const events = await getEvents();
@@ -47,7 +49,7 @@ export default async function CalendarPage({ params }: PageProps) {
         </header>
         
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
-          <EventCalendarCard events={events} />
+          <EventCalendarCard events={sampleEvents} />
         </div>
         
       </SidebarInset>

@@ -3,9 +3,10 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar" 
-import { facilities } from '@/lib/constant'; // Adjust this import path if needed
+import { facilities } from '@/lib/constant'; 
 import { PlusIcon } from "lucide-react"
 import { formatDateRange } from "little-date"
+import { sampleEvents, type CalendarEvent } from "@/lib/events"
 import {
   Card,
   CardFooter,
@@ -19,42 +20,45 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-// 1. Define the shape of a single event
-export interface CalendarEvent {
-  title: string;
-  from: string | Date;
-  to: string | Date;
-}
 
-// 2. Define the props this component expects
 interface EventCalendarCardProps {
-  events: CalendarEvent[]; // Receiving the array here
+  events: CalendarEvent[]; 
 }
 
-export function EventCalendarCard({ events }: EventCalendarCardProps) {
+export function EventCalendarCard({ events}: EventCalendarCardProps) {
   const [date, setDate] = React.useState<Date | undefined>(
-    new Date(2025, 5, 12)
+    new Date()
   )
 const [currentMonth, setCurrentMonth] = React.useState<Date>(
     new Date() 
   )
+const [selectedFacility, setSelectedFacility] = React.useState<string>("")
 
-  const bookedDates = Array.from(
-    { length: 5 },
-    (_, i) => new Date(2025, 11, 1 + i)
-  )
+const bookedDates = React.useMemo(() => {
+    if (!selectedFacility) return [];
+    const relevantEvents = events.filter((e) => e.id === selectedFacility);
+
+
+    return relevantEvents.map((event) => ({
+      from: new Date(event.from),
+      to: new Date(event.to),
+    }));
+  }, [events, selectedFacility]);
+
   const filteredEvents = events.filter((event) => {
     const eventDate = new Date(event.from);
     
-    // Check if event year and month match the currently viewed month
-    return (
+    const isSameMonth=
       eventDate.getMonth() === currentMonth.getMonth() &&
-      eventDate.getFullYear() === currentMonth.getFullYear()
-    );
+      eventDate.getFullYear() === currentMonth.getFullYear();
+    const isSameFacility = selectedFacility ? event.id === selectedFacility : true;
+    return isSameMonth && isSameFacility;
   });
+  
+
   return (
     <Card className="flex flex-col w-full max-w-5xl mx-auto mt-2 p-4 gap-6 bg-[#dce5f2] border border-slate-400 rounded-xl shadow-sm overflow-hidden items-stretch justify-center">
-      <Select>
+      <Select onValueChange={setSelectedFacility} value={selectedFacility}>
         <SelectTrigger className="w-[190px] bg-[#EEF4ED] border border-[#556378]">
           <SelectValue placeholder="Select an Event Space" />
         </SelectTrigger>
