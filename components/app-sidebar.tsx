@@ -86,7 +86,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain}/>
       </SidebarContent>
 
-      <SidebarFooter className= "mt-auto w-full px-2  ">
+      <SidebarFooter className= "mt-auto w-full px-2  bg-[#EEF4ED] hover:bg-white border-2 border-[#556378] rounded-sm">
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
