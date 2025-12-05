@@ -1,6 +1,8 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button";
 import Image from "next/image"
+import { facilities } from "../../../lib/constant";
+import { FacilityCard } from "../../../components/FacilityCards";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -25,7 +27,8 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-export default function Page() {
+
+export default function Dashboard() {
   return (
     <SidebarProvider>
       <AppSidebar/>
@@ -50,64 +53,15 @@ export default function Page() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3">
-            <a 
-              className="aspect-square rounded-xl w-full h-full" 
-              href="/authentication/dashboard" 
-            >
-              <Card className="bg-[#556378] flex-col w-full h-full items-center justify-center flex rounded-xl px-4 pb-4 pt-0 hover:bg-[#4a5568] relative">
-                <CardHeader className="w-full h-55 absolute top-0 p-0! rounded-t-xl overflow-hidden">
-                <Image
-                src="/Convention.jpg"
-                alt="conventionimage"
-                fill
-                className="rounded-xl object-cover" 
-                />
-                </CardHeader>
-                <CardContent className="text-white font-bold text-2xl pt-55">
-                  Convention Center
-                </CardContent>
-              </Card>
-            </a>
-            <a 
-              className="aspect-square rounded-xl w-full h-full" 
-              href="/authentication/dashboard" 
-            >
-              <Card className="bg-[#556378] flex-col w-full h-full items-center justify-center flex rounded-xl px-4 pb-4 pt-0 hover:bg-[#4a5568] relative">
-                <CardHeader className="w-full h-55 absolute top-0 p-0! rounded-t-xl overflow-hidden">
-                <Image
-                src="/CCE.jpg"
-                alt="cceimage"
-                fill
-                className="rounded-xl object-cover" 
-                />
-                </CardHeader>
-                <CardContent className="text-white font-bold text-2xl pt-55 text-center">
-                  Center for Continuing Education
-                </CardContent>
-              </Card>
-            </a>
-            <a 
-              className="aspect-square rounded-xl w-full h-full" 
-              href="/authentication/dashboard" 
-            >
-              <Card className="bg-[#556378] flex-col w-full h-full items-center justify-center flex rounded-xl px-4 pb-4 pt-0 hover:bg-[#4a5568] relative">
-                <CardHeader className="w-full h-55 absolute top-0 p-0! rounded-t-xl overflow-hidden">
-                <Image
-                src="/Beach_Resort.jpg"
-                alt="beachresortimage"
-                fill
-                className="rounded-xl object-cover" 
-                />
-                </CardHeader>
-                <CardContent className="text-white font-bold text-2xl pt-55 text-center">
-                  Beach Garden
-                </CardContent>
-              </Card>
-            </a>
-            <div className="bg-[#556378] aspect-square rounded-xl" />
-            <div className="bg-[#556378] aspect-square rounded-xl" />
-            <div className="bg-[#556378] aspect-square rounded-xl" />
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3 ">
+            {facilities.map((facility, index) => (
+              <FacilityCard
+                id={facility.id}
+                key={index}
+                title={facility.title}
+                imageSrc={facility.imageSrc}
+              />
+            ))}
           </div>
         </div>
       </SidebarInset>

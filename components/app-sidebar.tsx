@@ -30,8 +30,6 @@ import {
   useSidebar
 } from "@/components/ui/sidebar"
 
-
-// This is sample data.
 const data = {
   user: {
     name: "Name N. Surname",
@@ -46,12 +44,12 @@ const data = {
     },
     {
       title: "Calendar",
-      url: "#",
+      url: "/authentication/dashboard/calendar",
       icon: CalendarFold
     },
     {
       title: "Contacts",
-      url: "#",
+      url: "/authentication/dashboard/contacts",
       icon: BookOpen,
     },
     
