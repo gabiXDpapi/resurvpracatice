@@ -36,7 +36,7 @@ export function EventCalendarCard({ events }: EventCalendarCardProps) {
     new Date(2025, 5, 12)
   )
 const [currentMonth, setCurrentMonth] = React.useState<Date>(
-    new Date(2025, 5, 12) 
+    new Date() 
   )
 
   const bookedDates = Array.from(
