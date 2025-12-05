@@ -59,10 +59,8 @@ const data = {
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const sidebar = useSidebar?.()
-  const isCollapsed = sidebar ? sidebar.state === "collapsed" : false
   return ( 
-    <Sidebar collapsible="icon" className="flex flex-col min-h-screen items-center justify-center bg-[#556378] " {...props}>
+    <Sidebar collapsible="none" className="flex flex-col min-h-screen items-center justify-center bg-[#556378] " {...props}>
      <SidebarHeader className="w-full px-2 py-4 h-32 flex items-center justify-center bg-[#556378] ">
         <Button className="w-full justify-center py-2 gap-1 bg-transparent hover:bg-transparent">
           <a
@@ -71,10 +69,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           >
             <span
               className={
-                "ml-2 text-4xl font-bold text-black transition-all duration-200 ease-in-out justify-center " +
-                (isCollapsed ? "opacity-0 max-w-0 overflow-hidden" : "opacity-100 max-w-xs")
+                "ml-2 text-4xl font-bold text-black transition-all duration-200 ease-in-out justify-center "
+                
               }
-              aria-hidden={isCollapsed}
             >
               <div className="w-6 h-6 flex items-center justify-center gap-1 text-[#C1E1C1]">
                 <CalendarFold size={500} className="text-[#C1E1C1] w-8! h-8!" />

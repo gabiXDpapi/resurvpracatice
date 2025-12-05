@@ -1,24 +1,21 @@
 "use client"
 
 import Link from "next/link"
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { type LucideIcon } from "lucide-react"
 
 import {
   SidebarGroup,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 
 export function NavMain({ items }: { items: { title: string; url: string; icon?: LucideIcon }[] }) {
   return (
     <SidebarGroup className="items-center">
-      <SidebarMenu >
+      <SidebarMenu>
         {items.map((item) => (
-          <SidebarMenuItem key={item.title} className="w-full mb-2">
+          <SidebarMenuItem key={item.title} className="flex w-full mb-2 items-center justify-center">
             <SidebarMenuButton asChild tooltip={item.title}>
               <Link
                 href={item.url}
@@ -31,7 +28,7 @@ export function NavMain({ items }: { items: { title: string; url: string; icon?:
                 "
               >
                 {item.icon && (
-                  <div className="w-8 h-8 flex items-center justify-center">
+                  <div className="w-8 h-8 flex items-center justify-center shrink-0">
                     <item.icon size={24} className="text-[#C1E1C1]" />
                   </div>
                 )}
