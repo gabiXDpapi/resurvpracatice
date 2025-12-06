@@ -1,4 +1,4 @@
-import { facilities } from "@/lib/constant";
+import { facilities } from "@/lib/types";
 import { notFound } from 'next/navigation';
 import { ReservationCard } from "@/components/ReservationCard"; 
 

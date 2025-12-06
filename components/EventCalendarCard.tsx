@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar" 
-import { facilities } from '@/lib/constant'; 
+import { facilities } from '@/lib/types'; 
 import { PlusIcon } from "lucide-react"
 import { formatDateRange } from "little-date"
 import { sampleEvents, type CalendarEvent } from "@/lib/events"

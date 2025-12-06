@@ -2,7 +2,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button";
 import Image from "next/image"
 import { notFound } from 'next/navigation';
-import { facilities } from '@/lib/constant';
+import { createClient } from "@/utils/supabase/server";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -32,11 +32,26 @@ interface PageProps {
     id: string;
   }>;
 }
+export type Facility ={
+  id: string;
+  title: string;
+  imageSrc: string;
+  desc: string; 
+  contactnum: string;
+  localnum: string;
+}
 
 export default async function EventSpace({ params }: PageProps) {
   const { id } = await params;
-  const facility = facilities.find((item) => item.id === id);
-  if (!facility) {
+  const supabase = await createClient();
+  const { data: facility, error } = await supabase
+    .from('facilities')
+    .select('*')
+    .eq('id', id) 
+    .single();    
+
+  if (error || !facility) {
+    console.error("Error fetching facility:", error);
     return notFound(); 
   }
   return (
@@ -54,7 +69,7 @@ export default async function EventSpace({ params }: PageProps) {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator/>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/authentication/dashboard" className= "text-black">
+                  <BreadcrumbLink href={`/eventspaces/${facility.id}`} className= "text-black">
                     {facility.title}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -68,7 +83,7 @@ export default async function EventSpace({ params }: PageProps) {
   <div className="flex flex-col w-full max-w-5xl mx-auto bg-[#dce5f2] border border-slate-400 rounded-xl shadow-sm overflow-hidden">
     <div className="relative w-full h-[400px]">
       <Image
-        src={facility.imageSrc}
+        src={facility.image_url}
         alt={facility.title}
         fill 
         className="object-cover" 
@@ -95,7 +110,7 @@ export default async function EventSpace({ params }: PageProps) {
       </div>
 
       <p className="text-slate-600 text-sm leading-relaxed">
-        {facility.desc}
+        {facility.description}
       </p>
     </div>
 

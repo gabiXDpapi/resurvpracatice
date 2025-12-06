@@ -1,6 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import Image from "next/image"
-import { facilities } from '@/lib/constant'; // We will use this data now
+import { facilities } from '@/lib/types'; // We will use this data now
 import {
   Breadcrumb,
   BreadcrumbItem,

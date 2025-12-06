@@ -1,7 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { Button } from "@/components/ui/button";
 import Image from "next/image"
-import { facilities } from "../../../lib/constant";
+import { createClient } from "@/utils/supabase/server";
 import { FacilityCard } from "../../../components/FacilityCards";
 import {
   Breadcrumb,
@@ -26,15 +26,32 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+type Facility ={
+  id: string;
+  title: string;
+  imageSrc: string;
+  desc: string; 
+  contactnum: string;
+  localnum: string;
+}
 
+export default async function Dashboard() {
+  const supabase = await createClient();
+  const { data: facilities, error } = await supabase
+    .from('facilities')
+    .select('*');
 
-export default function Dashboard() {
+  if (error) {
+    console.error("Error fetching facilities:", error);
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar/>
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 bg-[#CEDBEE]">
           <div className="flex items-center gap-2 px-4">
+
             <Separator
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
@@ -53,12 +70,12 @@ export default function Dashboard() {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#EEF4ED]">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3 rows-3 p-3 ">
-            {facilities.map((facility, index) => (
+            {facilities?.map((facility) => (
               <FacilityCard
+                key={facility.id}
                 id={facility.id}
-                key={index}
                 title={facility.title}
-                imageSrc={facility.imageSrc}
+                imageSrc={facility.image_url} // CHANGED: match the DB column name
               />
             ))}
           </div>
